@@ -35,7 +35,7 @@ import Categories from "./Categories";
 import PlatformDetails from "./PlateformData";
 import MainLoader from "../../components/MainLoader";
 import Apkdownload from "../../components/Apkdownload";
-import rotator from "../../assets/jaiclub/rankHalo.webp"
+// import rotator from "../../assets/jaiclub/rankHalo.webp"
 import { MdOutlineArrowDropDown } from "react-icons/md";
 import { FaCoins } from "react-icons/fa6";
 import rankCrown from "../../assets/jaiclub/rankWreath.webp"

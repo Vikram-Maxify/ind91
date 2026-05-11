@@ -702,7 +702,7 @@
     /* bada rakho for smooth rotate */
     height: 200%;
 
-    background-image: url("/Users/user/Desktop/Playnosis/JaiClub/client/src/assets/jaiclub/rankHalo.webp");
+    background-image: url("../../assets/jaiclub/rankHalo.webp");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
