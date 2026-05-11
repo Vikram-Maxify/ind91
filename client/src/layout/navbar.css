@@ -1,0 +1,58 @@
+.navbar-section {
+  position: fixed;
+  bottom: 4px;
+  left: 50%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 26.4rem;
+  text-align: center;
+  -webkit-transform: translateX(-50%);
+  transform: translate(-50%);
+  height: 4.5rem;
+  /* padding-block: 0 .13333rem;
+    font-size: .29333rem; */
+  /* height: 4rem; */
+  z-index: 100;
+  padding: 0 12px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /* background-color: var(--bg-nav); */
+
+}
+.navbar-section::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-image: url("../assets/jaiclub/Navbar/bottom-barMainbg.webp");
+  z-index: 4;
+}
+.nav-promotion {
+    position: relative;
+    opacity: 1;
+}
+.nav-promotion svg {
+  /* margin-top: 8px; */
+  font-size: 32px;
+}
+@media screen and (max-width: 500px) {
+  .navbar-section {
+    width: 100%;
+  }
+}
+.navbar-section .active {
+  color: var(--main-color);
+}
+.navbar-section > div {
+  cursor: pointer;
+}
+.svg-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--bg-color-l);
+    vertical-align: middle;
+}
