@@ -6889,9 +6889,9 @@ const zilpay = async (req, res) => {
 
     const params = {
       amount: Number(money),
-      auth: "TSFHEYY8UH2FLCVCNFGT",
-      callback: "https://in91.icu/api/webapi/zilpayCallback",
-      redirect_url: "https://99gold.pics",
+      auth: "7RHBWPT9Q7LUNBZQFFVC",
+      callback: "https://ind91.us/api/webapi/zilpayCallback",
+      redirect_url: "https://ind91.us",
       user: userInfo.phone,
     };
 
@@ -7169,7 +7169,7 @@ const initiateTrexoPayPayment = async (req, res) => {
     const user_token = "79bf6a0f993ae54510d819a092c51905";
 
     const orderId = getRechargeOrderId();
-    const redirect_url = "https://99gold.pics/api/webapi/verifyTrexoPayPayment";
+    const redirect_url = "https://ind91.us/api/webapi/verifyTrexoPayPayment";
 
 
     const params = {
@@ -7370,8 +7370,8 @@ const handleRechargeppay = async (req, res) => {
     const merchantId = "M514039"; // Replace with your actual Merchant ID
     const appId = "69816d78559c22f8bbeac1e3"; // Replace with your actual App ID
     const orderId = `PP${Date.now()}`; // Unique order number
-    const notify_url = `https://99gold.pics/api/webapi/callbackdatappay`; // Replace with your actual notification URL
-    const return_url = `https://99gold.pics`; // Replace with your actual return URL
+    const notify_url = `https://ind91.us/api/webapi/callbackdatappay`; // Replace with your actual notification URL
+    const return_url = `https://ind91.us`; // Replace with your actual return URL
 
     // Prepare parameters
     const params = {
