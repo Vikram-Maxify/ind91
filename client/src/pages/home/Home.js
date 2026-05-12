@@ -795,7 +795,7 @@ useEffect(() => {
       {topup1 && (
         <div className="absolute top-20 left-0 right-0 flex m-auto flex-col bg-color-l mx-10 pb-5 rounded-lg z-50">
           <div className="bg-gradient-to-r from-[#422A83] to-[#5C5BDC] text-center p-2 font-bold text-lg rounded-t-lg  text-white ">
-            🦋 Welcome to the New JaiClub 📢
+            🦋 Welcome to the New ind91 📢
           </div>
           <div className="px-2 py-0 font-medium text-left text-sm text-white max-h-[50vh] overflow-auto">
             <img src="https://i.ibb.co/VYqkjPS2/jaiclub-banner-1.png" alt="" />

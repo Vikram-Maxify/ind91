@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const img1 = "https://i.ibb.co/tMyKppjB/start-15844f4f.webp";
-const bgImg = "https://i.ibb.co/bRMXVrkx/main-Loader.webp";
+const bgImg = "https://i.ibb.co/6QmtPKH/023feb1a-46e1-402e-a7da-29039c6c94b4.png";
 
 const MainLoader = () => {
   const { bannergetData } = useSelector((state) => state.auth);

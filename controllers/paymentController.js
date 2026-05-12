@@ -351,7 +351,7 @@ const initiateSunpayPayment = async (req, res) => {
             return crypto.createHash('md5').update(signStr).digest('hex');
         }
         const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
-        const callbackurl = 'https://bdgclub.games/wallet/paynow/verify-sunpay';
+        const callbackurl = 'https://ind91.us/wallet/paynow/verify-sunpay';
 
         const params = {
             version: '1.0',
