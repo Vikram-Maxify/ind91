@@ -108,7 +108,7 @@ const PlatformDetails = () => {
               ></rect>
             </svg>
           </span>{" "}
-          JaiClub works with more than 10,000 online live game dealers and
+          ind91 works with more than 10,000 online live game dealers and
           slot games, all of which are verified fair games.
         </p>
         <p className="flex items-start gap-1 text-white text-sm pt-5">
@@ -132,7 +132,7 @@ const PlatformDetails = () => {
               ></rect>
             </svg>
           </span>{" "}
-          JaiClub supports fast deposit and withdrawal and looks forward to
+          ind91 supports fast deposit and withdrawal and looks forward to
           your visit.
         </p>
         <br />
@@ -140,7 +140,7 @@ const PlatformDetails = () => {
           Gambling can be addictive, please play rationally.
         </p>
         <p className="text-[#F8BF61] text-[15px]">
-          JaiClub only accepts customers above the age of 18.
+          ind91 only accepts customers above the age of 18.
         </p>
       </div>
     </div>
