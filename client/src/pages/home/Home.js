@@ -48,6 +48,7 @@ import bannerarrow from "../../assets/jaiclub/banner-bg-right.svg";
 import WheelSpinImg from "../../assets/jaiclub/Navbar/WheelSpinImg.png"
 import ContactRobo from "../../assets/jaiclub/Navbar/contact-robo.webp"
 import Dragon from "../../assets/jaiclub/Navbar/Dragon.svg"
+import ServiceImg from "../../assets/jaiclub/Navbar/giftbox-2.png";
 
 
 const Home = () => {
@@ -210,7 +211,7 @@ useEffect(() => {
         </Link>
 
         <Link to={userInfo?.telegram} style={{ display: "inline-block" }}>
-          <img src={ContactRobo} alt="Service" className="w-14 " />
+          <img src={ServiceImg} alt="Service" className="w-14 " />
         </Link>
         <div style={{ display: "inline-block" }}>
           <img src={Dragon} alt="Service" className="w-14" />
@@ -798,7 +799,7 @@ useEffect(() => {
             🦋 Welcome to the New ind91 📢
           </div>
           <div className="px-2 py-0 font-medium text-left text-sm text-white max-h-[50vh] overflow-auto">
-            <img src="https://i.ibb.co/VYqkjPS2/jaiclub-banner-1.png" alt="" />
+            <img src="https://i.ibb.co/xS6xshkp/20.png" alt="" />
           </div>
           {/* <h4 className="text-center mt-1">
             <a href="#" className="text-white bg-[#003163]">
@@ -828,7 +829,7 @@ useEffect(() => {
             </a>
           </h4>
           <div className="px-2 py-0 font-medium text-left text-sm text-white max-h-[50vh] overflow-auto">
-            <img src="https://i.ibb.co/6VPwKbW/jaiclub-2.png" alt="" />
+            <img src="https://i.ibb.co/jZhHNHdH/19.png" alt="" />
           </div>
           <button
             className="bg-gradient-to-r from-[#422A83] to-[#5C5BDC] text-center p-2 font-bold text-lg rounded-t-lg  text-white -mb-5"

@@ -183,7 +183,7 @@ const handleSubmit = async () => {
 
       if (res.payload.status) {
         setAlertsuccess(true);
-        window.open(res.payload.data.payData, "_blank");
+        window.open(res.payload.data.payData, "");
       } else {
         setAlerts(true);
       }
@@ -237,7 +237,7 @@ const handleSubmit = async () => {
         setSuccessMessage(res.payload.message);
         if (res.payload.status) {
           setAlertsuccess(true);
-          window.open(res.payload.data.payData, "_blank");
+          window.open(res.payload.data.payData, "");
         } else {
           setAlerts(true);
         }
@@ -250,7 +250,7 @@ const handleSubmit = async () => {
         setSuccessMessage(res.payload.message);
         if (res.payload.status) {
           setAlertsuccess(true);
-          window.open(res.payload.data.payData, "_blank");
+          window.open(res.payload.data.payData, "");
         } else {
           setAlerts(true);
         }

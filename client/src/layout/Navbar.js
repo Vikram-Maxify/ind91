@@ -17,6 +17,7 @@ import AccountNav from "../assets/jaiclub/Navbar/Account.webp";
 import AccountActive from "../assets/jaiclub/Navbar/Account-Active.webp";
 import Wallet from "../assets/jaiclub/Navbar/Wallet.webp";
 import WalletActive from "../assets/jaiclub/Navbar/Wallet-Active.webp";
+import ContactRobo from "../assets/jaiclub/Navbar/contact-robo.webp"
  
 const Navbar = () => {
   const [activeItem, setActiveItem] = useState("/");
@@ -321,7 +322,7 @@ const Navbar = () => {
         onMouseMove={(e) => e.preventDefault()}
       >
         <div onClick={handleClicks} style={{ display: "inline-block" }}>
-          <img src={ServiceImg} alt="Service" className="w-14" />
+          <img src={ContactRobo} alt="Service" className="w-14" />
         </div>
       </div>
     </>
