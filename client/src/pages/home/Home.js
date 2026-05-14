@@ -49,6 +49,7 @@ import WheelSpinImg from "../../assets/jaiclub/Navbar/WheelSpinImg.png"
 import ContactRobo from "../../assets/jaiclub/Navbar/contact-robo.webp"
 import Dragon from "../../assets/jaiclub/Navbar/Dragon.svg"
 import ServiceImg from "../../assets/jaiclub/Navbar/giftbox-2.png";
+import Cookies from "js-cookie";
 
 
 const Home = () => {
@@ -210,9 +211,11 @@ useEffect(() => {
           <img src={WheelSpinImg} alt="Service" className="w-14  " />
         </Link>
 
-        <a href={"https://support.ind91.us/"} style={{ display: "inline-block" }}>
+        <Link to={`https://support.ind91.us/?token=${Cookies.get(
+                        "auth"
+                      )}`} style={{ display: "inline-block" }}>
           <img src={ServiceImg} alt="Service" className="w-14 " />
-        </a>
+        </Link>
         <div style={{ display: "inline-block" }}>
           <img src={Dragon} alt="Service" className="w-14" />
         </div>

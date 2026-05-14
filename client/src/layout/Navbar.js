@@ -18,6 +18,7 @@ import AccountActive from "../assets/jaiclub/Navbar/Account-Active.webp";
 import Wallet from "../assets/jaiclub/Navbar/Wallet.webp";
 import WalletActive from "../assets/jaiclub/Navbar/Wallet-Active.webp";
 import ContactRobo from "../assets/jaiclub/Navbar/contact-robo.webp"
+import Cookies from "js-cookie";
  
 const Navbar = () => {
   const [activeItem, setActiveItem] = useState("/");
@@ -114,12 +115,17 @@ const Navbar = () => {
   };
  
   const handleClicks = (e) => {
-    if (dragStarted) {
-      e.preventDefault();
-    } else {
-      window.open("https://support.ind91.us/", "_blank");
-    }
-  };
+  if (dragStarted) {
+    e.preventDefault();
+  } else {
+    const token = Cookies.get("auth");
+
+    window.open(
+      `https://support.ind91.us/?token=${token}`,
+      "_blank"
+    );
+  }
+};
  
   // ─── Disable scroll while dragging ───────────────────────────────────────
   useEffect(() => {
