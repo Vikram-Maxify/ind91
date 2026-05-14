@@ -117,7 +117,7 @@ const Navbar = () => {
     if (dragStarted) {
       e.preventDefault();
     } else {
-      window.open("http://h5workordersupport.trueprofit.biz", "_blank");
+      window.open("https://support.ind91.us/", "_blank");
     }
   };
  

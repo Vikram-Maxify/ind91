@@ -210,9 +210,9 @@ useEffect(() => {
           <img src={WheelSpinImg} alt="Service" className="w-14  " />
         </Link>
 
-        <Link to={userInfo?.telegram} style={{ display: "inline-block" }}>
+        <a href={"https://support.ind91.us/"} style={{ display: "inline-block" }}>
           <img src={ServiceImg} alt="Service" className="w-14 " />
-        </Link>
+        </a>
         <div style={{ display: "inline-block" }}>
           <img src={Dragon} alt="Service" className="w-14" />
         </div>
