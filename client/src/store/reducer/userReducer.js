@@ -216,7 +216,7 @@ export const recharge3 = createAsyncThunk(
   async ({ amount, type }, { rejectWithValue, fulfillWithValue }) => {
     try {
       const { data } = await api.post(
-        "/webapi/zilpay",
+        "/webapi/rechargepay",
         { amount: amount, type: type },
         { withCredentials: true },
       );

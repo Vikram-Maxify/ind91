@@ -346,7 +346,7 @@ useEffect(() => {
         </div>
       </div>
 
-      <div className="container-section">
+      <div className="container-section mt-3">
         <div className="banner-notice bg-navs rounded-xl border border-[#224BA2] flex items-center justify-between">
           <svg
             data-v-20e1659b=""
@@ -802,7 +802,7 @@ useEffect(() => {
             🦋 Welcome to the New ind91 📢
           </div>
           <div className="px-2 py-0 font-medium text-left text-sm text-white max-h-[50vh] overflow-auto">
-            <img src="https://i.ibb.co/xS6xshkp/20.png" alt="" />
+            <img src="https://i.ibb.co/MxwRQwzT/20-1.png" alt="" />
           </div>
           {/* <h4 className="text-center mt-1">
             <a href="#" className="text-white bg-[#003163]">
@@ -832,7 +832,7 @@ useEffect(() => {
             </a>
           </h4>
           <div className="px-2 py-0 font-medium text-left text-sm text-white max-h-[50vh] overflow-auto">
-            <img src="https://i.ibb.co/jZhHNHdH/19.png" alt="" />
+            <img src="https://i.ibb.co/PvQdVzL1/19-1.png" alt="" />
           </div>
           <button
             className="bg-gradient-to-r from-[#422A83] to-[#5C5BDC] text-center p-2 font-bold text-lg rounded-t-lg  text-white -mb-5"

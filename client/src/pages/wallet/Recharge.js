@@ -177,7 +177,7 @@ const handleSubmit = async () => {
   if (activeTab === "UPI-QR") {
 
   // ✅ 1st tab -> Ppay gateway
-  if (activeTab2 === "Ppay") {
+  if (activeTab2 === "Ppay" || activeTab2 === "Easy-QRpay") {
     dispatch(recharge3({ amount, type })).then((res) => {
       setSuccessMessage(res.payload.message);
 
@@ -195,7 +195,7 @@ const handleSubmit = async () => {
   }
 
   // ✅ 2nd tab -> Trexo gateway
-  else if (activeTab2 === "UPI-QR") {
+  else if (activeTab2 === "UPI-QR" || activeTab2==="UPI-APPpay") {
     dispatch(TrexoPayment({ amount, type })).then((res) => {
       setSuccessMessage(res.payload.message);
 
@@ -214,19 +214,17 @@ const handleSubmit = async () => {
 
   // ✅ baki sab
   else {
-    dispatch(recharge3({ amount, type })).then((res) => {
+    dispatch(zilpayRecharge({ amount, type })).then((res) => {
       setSuccessMessage(res.payload.message);
-
       if (res.payload.status) {
         setAlertsuccess(true);
-        window.open(res.payload.data.payData, "_blank");
+        window.location.href = res.payload.data.url;
       } else {
         setAlerts(true);
       }
-
       setTimeout(() => {
         setSuccessMessage("");
-      }, 2000);
+      }, 3000);
     });
   }
 }
@@ -246,18 +244,18 @@ const handleSubmit = async () => {
         }, 2000);
       });
     } else {
-      dispatch(recharge3({ amount, type })).then((res) => {
-        setSuccessMessage(res.payload.message);
-        if (res.payload.status) {
-          setAlertsuccess(true);
-          window.open(res.payload.data.payData, "");
-        } else {
-          setAlerts(true);
-        }
-        setTimeout(() => {
-          setSuccessMessage("");
-        }, 2000);
-      });
+     dispatch(zilpayRecharge({ amount, type })).then((res) => {
+       setSuccessMessage(res.payload.message);
+       if (res.payload.status) {
+         setAlertsuccess(true);
+         window.location.href = res.payload.data.url;
+       } else {
+         setAlerts(true);
+       }
+       setTimeout(() => {
+         setSuccessMessage("");
+       }, 3000);
+     });
     }
   } 
   
