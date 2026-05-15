@@ -6809,6 +6809,7 @@ const zilpay = async (req, res) => {
     //   let money = 2;
     let money = req.body.amount;
     let type = req.body.type;
+    const timeNow=new Date().getTime()
 
     if (!auth || !money || money <= 99) {
       return res.status(200).json({
@@ -7136,8 +7137,10 @@ const initiateTrexoPayPayment = async (req, res) => {
 
   const auth = req.cookies.auth;
   const am = req.body.amount
-  const money = req.body.amount
+  let money = req.body.amount
   const type = req.body.type
+
+  const timeNow = new Date().getTime()
 
   if (!auth || !money || money <= 99) {
     return res.status(200).json({
@@ -7165,6 +7168,60 @@ const initiateTrexoPayPayment = async (req, res) => {
 
   try {
 
+      if (userInfo.isdemo == 1) {
+      const date = new Date();
+
+      let id_time =
+        date.getUTCFullYear() +
+        "" +
+        date.getUTCMonth() +
+        1 +
+        "" +
+        date.getUTCDate();
+      let id_order =
+        Math.floor(Math.random() * (99999999999999 - 10000000000000 + 1)) +
+        10000000000000;
+      // let vat = Math.floor(Math.random() * (2000 - 0 + 1) ) + 0;
+
+      money = Number(money);
+      let client_transaction_id = id_time + id_order;
+
+      const sql = `INSERT INTO recharge SET
+            id_order = ?,
+            transaction_id = ?,
+            phone = ?,
+            money = ?,
+            type = ?,
+            status = ?,
+            today = ?,
+            url = ?,
+            time = ?,
+            isdemo=?
+            
+            `;
+      await connection.execute(sql, [
+        client_transaction_id,
+        "0",
+        userInfo.phone,
+        money,
+        type,
+        1,
+        checkTime,
+        "1",
+        checkTime,
+        1,
+      ]);
+
+      await connection.execute(
+        "UPDATE users SET money = money + ? WHERE phone = ? ",
+        [money, userInfo.phone]
+      );
+      return res.status(200).json({
+        message: "Demo Amount is added",
+        status: false,
+        timeStamp: timeNow,
+      });
+    }
 
     const user_token = "79bf6a0f993ae54510d819a092c51905";
 
@@ -7343,6 +7400,8 @@ const handleRechargeppay = async (req, res) => {
   let typeid = req.body.typeid;
   let utr = req.body.utr;
 
+  const timeNow = new Date().getTime();
+
   if (!auth || !money || money <= 99) {
     return res.status(200).json({
       message: "Minimum recharge 100",
@@ -7367,6 +7426,61 @@ const handleRechargeppay = async (req, res) => {
   let checkTime = timerJoin2(Date.now());
   let time = timerJoin2(Date.now());
   try {
+  if (userInfo.isdemo == 1) {
+      const date = new Date();
+
+      let id_time =
+        date.getUTCFullYear() +
+        "" +
+        date.getUTCMonth() +
+        1 +
+        "" +
+        date.getUTCDate();
+      let id_order =
+        Math.floor(Math.random() * (99999999999999 - 10000000000000 + 1)) +
+        10000000000000;
+      // let vat = Math.floor(Math.random() * (2000 - 0 + 1) ) + 0;
+
+      money = Number(money);
+      let client_transaction_id = id_time + id_order;
+
+      const sql = `INSERT INTO recharge SET
+            id_order = ?,
+            transaction_id = ?,
+            phone = ?,
+            money = ?,
+            type = ?,
+            status = ?,
+            today = ?,
+            url = ?,
+            time = ?,
+            isdemo=?
+            
+            `;
+      await connection.execute(sql, [
+        client_transaction_id,
+        "0",
+        userInfo.phone,
+        money,
+        type,
+        1,
+        checkTime,
+        "1",
+        checkTime,
+        1,
+      ]);
+
+      await connection.execute(
+        "UPDATE users SET money = money + ? WHERE phone = ? ",
+        [money, userInfo.phone]
+      );
+      return res.status(200).json({
+        message: "Demo Amount is added",
+        status: false,
+        timeStamp: timeNow,
+      });
+    }
+
     const merchantId = "M514039"; // Replace with your actual Merchant ID
     const appId = "69816d78559c22f8bbeac1e3"; // Replace with your actual App ID
     const orderId = `PP${Date.now()}`; // Unique order number
