@@ -236,7 +236,7 @@ const RechargeHistory = () => {
               </div>
               {item.status === 0 && (
                 <Link
-                  to={`https://h5.workorder.support.winstar99.fit/deposite?token=${Cookies.get(
+                  to={`https://support.ind91.us/deposite?token=${Cookies.get(
                     "auth",
                   )}&order=${item.id_order}&amount=${
                     item.money

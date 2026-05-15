@@ -146,7 +146,7 @@ const ChangePassword = () => {
           </div>
 
           <p className="gray-100 fs-sm flex items-center float-right mt-3">
-            <Link to={"http://h5workordersupport.trueprofit.biz/"}>Contact customer service</Link>{" "}
+            <Link to={"https://support.ind91.us/"}>Contact customer service</Link>{" "}
             <RiArrowRightSLine className="text-sm mt-[3px]" />
           </p>
         </form>

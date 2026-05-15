@@ -35394,7 +35394,7 @@ const lt = Ro,
     }),
     ia = "/login",
     eS = ["/500", "/", "/main/About/AboutDetail", "/rpwd",
-        "/register", "http://h5workordersupport.trueprofit.biz/", "/main/Language",
+        "/register", "https://support.ind91.us/", "/main/Language",
         "/main/CustomerService/ServiceCollection"
     ],
     aS = ["home", "activity", "main", "promotion", "chat", "wallet"],

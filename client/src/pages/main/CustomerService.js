@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 const CustomerService = () => {
   useEffect(() => {
-    window.location.replace("http://h5workordersupport.trueprofit.biz/");
+    window.location.replace("https://support.ind91.us/");
   }, []);
 
   return null;
