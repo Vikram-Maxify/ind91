@@ -67,31 +67,40 @@ const [showConfirmPopup, setShowConfirmPopup] = useState(false);
     }, 1500);
   };
 
-  const withdrawSubmit = () => {
-  setShowConfirmPopup(false);  // confirm popup band
-  setShowRechargePopup(true);  // recharge popup open
-};
+//   const withdrawSubmit = () => {
+//   setShowConfirmPopup(false);  // confirm popup band
+//   setShowRechargePopup(true);  // recharge popup open
+// };
 
-  // const withdrawSubmit = () => {
-  //   setShowRechargePopup(true);
-  //   dispatch(
-  //     withdrawal({ money: amount, password: password, type: activeTab })
-  //   ).then((res) => {
-  //     setSuccessMessage(res.payload.message);
-  //     setBetAlert(true);
-  //     if (res.payload.status) {
-  //       setOpenPopup(false);
-  //       setShowPopup(true);
-  //     }
-  //   });
-  //   dispatch(userDetail());
-  //   setTimeout(() => {
-  //     setBetAlert(false);
-  //   }, 2000);
-  //   setTimeout(() => {
-  //     setSuccessMessage("");
-  //   }, 3000);
-  // };
+  const withdrawSubmit = () => {
+if(userInfo.isdemo ==1){
+
+
+
+
+    dispatch(
+      withdrawal({ money: amount, password: password, type: activeTab })
+    ).then((res) => {
+      setSuccessMessage(res.payload.message);
+      setBetAlert(true);
+      if (res.payload.status) {
+        // setOpenPopup(false);
+        setShowPopup(true);
+      }
+    });
+    dispatch(userDetail());
+    setTimeout(() => {
+      setBetAlert(false);
+    }, 2000);
+    setTimeout(() => {
+      setSuccessMessage("");
+    }, 3000);
+  }else{
+      setShowConfirmPopup(false);  // confirm popup band
+  setShowRechargePopup(true);  // recharge popup open
+  return;
+  }
+  };
 
   useEffect(() => {
     dispatch(getBank());
