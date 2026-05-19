@@ -718,7 +718,7 @@ const channels = [
       
       {
         label: "7Day-QRpay",
-        balance: "500 - 50K",
+        balance: "100 - 10K",
         depositAmount: [
           // {
           //   am: 500,
@@ -813,8 +813,11 @@ const channels = [
       },
       {
         label: "7Day-QRpay",
-        balance: "500 - 50K",
+        balance: "100 - 10K",
         depositAmount: [
+          {
+            am: 100,
+          },
           {
             am: 500,
           },
@@ -822,10 +825,13 @@ const channels = [
             am: 1000,
           },
           {
-            am: 10000,
+            am: 3000,
           },
           {
-            am: 50000,
+            am: 5000,
+          },
+          {
+            am: 10000,
           },
         ],
       },
