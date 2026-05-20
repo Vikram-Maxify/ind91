@@ -6889,7 +6889,7 @@ const zilpay = async (req, res) => {
     }
 
     const params = {
-      amount: Number(12),
+      amount: Number(money),
       auth: "7RHBWPT9Q7LUNBZQFFVC",
       callback: "https://ind91.us/api/webapi/zilpayCallback",
       redirect_url: "https://ind91.us",
