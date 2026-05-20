@@ -37,6 +37,7 @@ export default function Recharge() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("UPI-QR");
   const [activeTab2, setActiveTab2] = useState("Ppay");
+  const [activeTab3, setActiveTab3] = useState("Easy-QRpay");
   const [activeIndex, setActiveIndex] = useState(0);
   const [copyPopup, setCopyPopup] = useState(false);
   const [alerts, setAlerts] = useState(false);
@@ -168,34 +169,114 @@ export default function Recharge() {
   //   }
   // };
 
-const handleSubmit = async () => {
+  const handleSubmit = async () => {
   const type = activeTab2;
   const formData = new FormData();
+
   formData.append("amount", amount);
   formData.append("type", type);
 
   if (activeTab === "UPI-QR") {
 
-  // ✅ 1st tab -> Ppay gateway
-  if (activeTab2 === "Ppay" || activeTab2 === "Easy-QRpay") {
-    dispatch(recharge3({ amount, type })).then((res) => {
-      setSuccessMessage(res.payload.message);
+    // ✅ 1st channel -> Ppay gateway
+    if (activeTab2 === "Ppay") {
+      dispatch(recharge3({ amount, type })).then((res) => {
+        setSuccessMessage(res.payload.message);
 
-      if (res.payload.status) {
-        setAlertsuccess(true);
-        window.open(res.payload.data.payData, "");
-      } else {
-        setAlerts(true);
-      }
+        if (res.payload.status) {
+          setAlertsuccess(true);
+          window.open(res.payload.data.payData, "");
+        } else {
+          setAlerts(true);
+        }
 
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 2000);
-    });
+        setTimeout(() => setSuccessMessage(""), 2000);
+      });
+    }
+
+    // ✅ 2nd channel -> zilpay gateway
+    else if (activeTab2 === "UPI-QR") {
+      dispatch(zilpayRecharge({ amount, type })).then((res) => {
+        setSuccessMessage(res.payload.message);
+
+        if (res.payload.status) {
+          setAlertsuccess(true);
+          window.location.href = res.payload.data.url;
+        } else {
+          setAlerts(true);
+        }
+
+        setTimeout(() => setSuccessMessage(""), 3000);
+      });
+    }
+
+    // ✅ 4th channel Easy-QRpay -> Trexo gateway
+else if (activeTab2 === "Easy-QRpay") {
+  dispatch(TrexoPayment({ amount, type })).then((res) => {
+    setSuccessMessage(res.payload.message);
+
+    if (res.payload.status) {
+      setAlertsuccess(true);
+      window.location.href = res.payload.data.payment_url;
+    } else {
+      setAlerts(true);
+    }
+
+    setTimeout(() => setSuccessMessage(""), 3000);
+  });
+}
+
+   // ✅ baki sab -> अब zilpay gateway
+else {
+  dispatch(zilpayRecharge({ amount, type })).then((res) => {
+    setSuccessMessage(res.payload.message);
+
+    if (res.payload.status) {
+      setAlertsuccess(true);
+      window.location.href = res.payload.data.url;
+    } else {
+      setAlerts(true);
+    }
+
+    setTimeout(() => {
+      setSuccessMessage("");
+    }, 3000);
+  });
+}
   }
 
-  // ✅ 2nd tab -> Trexo gateway
-  else if (activeTab2 === "UPI-QR" || activeTab2==="UPI-APPpay") {
+  else if (activeTab === "UPI-QRpay" || activeTab === "Wake UP-APP") {
+
+    if (bannergetData?.chennal?.status2 == 1) {
+      dispatch(recharge3({ amount, type })).then((res) => {
+        setSuccessMessage(res.payload.message);
+
+        if (res.payload.status) {
+          setAlertsuccess(true);
+          window.open(res.payload.data.payData, "");
+        } else {
+          setAlerts(true);
+        }
+
+        setTimeout(() => setSuccessMessage(""), 2000);
+      });
+    } else {
+      dispatch(zilpayRecharge({ amount, type })).then((res) => {
+        setSuccessMessage(res.payload.message);
+
+        if (res.payload.status) {
+          setAlertsuccess(true);
+          window.location.href = res.payload.data.url;
+        } else {
+          setAlerts(true);
+        }
+
+        setTimeout(() => setSuccessMessage(""), 3000);
+      });
+    }
+  }
+
+  else if (activeTab === "UPI-PayTM") {
     dispatch(TrexoPayment({ amount, type })).then((res) => {
       setSuccessMessage(res.payload.message);
 
@@ -206,101 +287,22 @@ const handleSubmit = async () => {
         setAlerts(true);
       }
 
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 3000);
+      setTimeout(() => setSuccessMessage(""), 3000);
     });
   }
 
-  // ✅ baki sab
   else {
     dispatch(zilpayRecharge({ amount, type })).then((res) => {
       setSuccessMessage(res.payload.message);
+
       if (res.payload.status) {
         setAlertsuccess(true);
         window.location.href = res.payload.data.url;
       } else {
         setAlerts(true);
       }
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 3000);
-    });
-  }
-}
-  
-  else if (activeTab === "UPI-QRpay" || activeTab === "Wake UP-APP") {
-    if (bannergetData?.chennal?.status2 == 1) {
-      dispatch(recharge3({ amount, type })).then((res) => {
-        setSuccessMessage(res.payload.message);
-        if (res.payload.status) {
-          setAlertsuccess(true);
-          window.open(res.payload.data.payData, "");
-        } else {
-          setAlerts(true);
-        }
-        setTimeout(() => {
-          setSuccessMessage("");
-        }, 2000);
-      });
-    } else {
-     dispatch(zilpayRecharge({ amount, type })).then((res) => {
-       setSuccessMessage(res.payload.message);
-       if (res.payload.status) {
-         setAlertsuccess(true);
-         window.location.href = res.payload.data.url;
-       } else {
-         setAlerts(true);
-       }
-       setTimeout(() => {
-         setSuccessMessage("");
-       }, 3000);
-     });
-    }
-  } 
-  
-  else if (activeTab === "UPI-PayTM") {
-    if (bannergetData?.chennal?.status3 == 1) {
-      dispatch(TrexoPayment({ amount, type })).then((res) => {
-        setSuccessMessage(res.payload.message);
-        if (res.payload.status) {
-          setAlertsuccess(true);
-          window.location.href = res.payload.data.payment_url;
-        } else {
-          setAlerts(true);
-        }
-        setTimeout(() => {
-          setSuccessMessage("");
-        }, 3000);
-      });
-    } else {
-      dispatch(TrexoPayment({ amount, type })).then((res) => {
-        setSuccessMessage(res.payload.message);
-        if (res.payload.status) {
-          setAlertsuccess(true);
-          window.location.href = res.payload.data.payment_url;
-        } else {
-          setAlerts(true);
-        }
-        setTimeout(() => {
-          setSuccessMessage("");
-        }, 3000);
-      });
-    }
-  } 
-  
-  else {
-    dispatch(zilpayRecharge({ amount, type })).then((res) => {
-      setSuccessMessage(res.payload.message);
-      if (res.payload.status) {
-        setAlertsuccess(true);
-        window.location.href = res.payload.data.url;
-      } else {
-        setAlerts(true);
-      }
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 3000);
+
+      setTimeout(() => setSuccessMessage(""), 3000);
     });
   }
 };
@@ -384,8 +386,8 @@ const handleSubmit = async () => {
             <button
               key={tab.label}
               className={`col-span-3 py-3 bg-light relative text-sm flex justify-center flex-col items-center rounded ${activeTab === tab.label
-                  ? "blue-linear text-black"
-                  : "bg-light gray-100"
+                ? "blue-linear text-black"
+                : "bg-light gray-100"
                 }`}
               onClick={() => {
                 setActiveTab(tab.label); // Update the active tab
@@ -433,8 +435,8 @@ const handleSubmit = async () => {
                           <div
                             key={index}
                             className={` p-2 rounded-md cursor-pointer ${index === activeIndex
-                                ? "blue-linear text-black"
-                                : "nav-bg gray-100"
+                              ? "blue-linear text-black"
+                              : "nav-bg gray-100"
                               } `}
                             onClick={() => {
                               setActiveTab2(item.label);
@@ -470,8 +472,8 @@ const handleSubmit = async () => {
                                 <button
                                   key={index2}
                                   className={`flex items-center justify-center col-span-4 p-1 rounded font-semibold  ${amount == data.am
-                                      ? "blue-linear text-black"
-                                      : "border text-blue sky-border"
+                                    ? "blue-linear text-black"
+                                    : "border text-blue sky-border"
                                     }`}
                                   onClick={() => setAmount(data.am)}
                                 >
@@ -516,8 +518,8 @@ const handleSubmit = async () => {
 
                 <button
                   className={`  w-full rounded-full p-2 mt-4  ${amount > 9
-                      ? "blue-linear text-black"
-                      : "bg-gray-400 text-white"
+                    ? "blue-linear text-black"
+                    : "bg-gray-400 text-white"
                     }`}
                   disabled={loader ? true : false}
                 // onClick={handleSubmitUSDT}
@@ -543,15 +545,15 @@ const handleSubmit = async () => {
                                   <button
                                     key={index2}
                                     className={` col-span-4 p-1 rounded font-semibold  ${amount == data.am
-                                        ? "blue-linear text-black"
-                                        : "border text-blue sky-border"
+                                      ? "blue-linear text-black"
+                                      : "border text-blue sky-border"
                                       }`}
                                     onClick={() => setAmount(data.am)}
                                   >
                                     <span
                                       className={` mx-2 ${amount == data.am
-                                          ? "text-white"
-                                          : "gray-100"
+                                        ? "text-white"
+                                        : "gray-100"
                                         } `}
                                     >
                                       ₹
@@ -582,8 +584,8 @@ const handleSubmit = async () => {
 
                   <button
                     className={`  w-full rounded-full p-2 mt-4  ${amount > 99
-                        ? "blue-linear text-black"
-                        : "bg-gray-400 text-white"
+                      ? "blue-linear text-black"
+                      : "bg-gray-400 text-white"
                       }`}
                     disabled={loader ? true : false}
                     onClick={handleSubmit}
@@ -690,7 +692,7 @@ const channels = [
           },
         ],
       },
-      
+
       {
         label: "UPI-QR",
         balance: "100 - 10K",
@@ -715,7 +717,7 @@ const channels = [
           },
         ],
       },
-      
+
       {
         label: "7Day-QRpay",
         balance: "100 - 10K",
@@ -736,7 +738,7 @@ const channels = [
       },
       {
         label: "Easy-QRpay",
-        balance: "200 - 50K",
+        balance: "100 - 10K",
         depositAmount: [
           // {
           //   am: 200,
@@ -764,31 +766,41 @@ const channels = [
     label: "UPI-QRpay",
     channelItem: [
       {
-        label: "FlyPay-QRpay",
+        label: "Ppay",
         balance: "100 - 50K",
         depositAmount: [
-          {
-            am: 100,
-          },
-          {
-            am: 500,
-          },
-          {
-            am: 1000,
-          },
-          {
-            am: 3000,
-          },
-          {
-            am: 5000,
-          },
-          {
-            am: 10000,
-          },
+        //   {
+        //     am: 100,
+        //   },
+        //   {
+        //     am: 200,
+        //   },
+        //   {
+        //     am: 300,
+        //   },
+        //   {
+        //     am: 400,
+        //   },
+        //   {
+        //     am: 500,
+        //   },
+        //   {
+        //     am: 600,
+        //   },
+        //   {
+        //     am: 1000,
+        //   },
+        //   {
+        //     am: 2000,
+        //   },
+        //   {
+        //     am: 5000,
+        //   },
         ],
       },
+
       {
-        label: "Ppay",
+        label: "UPI-QR",
         balance: "100 - 10K",
         depositAmount: [
           // {
@@ -811,6 +823,7 @@ const channels = [
           // },
         ],
       },
+
       {
         label: "7Day-QRpay",
         balance: "100 - 10K",
@@ -837,13 +850,10 @@ const channels = [
       },
       {
         label: "Easy-QRpay",
-        balance: "200 - 50K",
+        balance: "100 - 10K",
         depositAmount: [
           {
-            am: 200,
-          },
-          {
-            am: 300,
+            am: 100,
           },
           {
             am: 500,
@@ -852,13 +862,112 @@ const channels = [
             am: 1000,
           },
           {
-            am: 10000,
+            am: 3000,
           },
           {
-            am: 50000,
+            am: 5000,
+          },
+          {
+            am: 10000,
           },
         ],
       },
+      // {
+      //   label: "FlyPay-QRpay",
+      //   balance: "100 - 50K",
+      //   depositAmount: [
+      //     {
+      //       am: 100,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 3000,
+      //     },
+      //     {
+      //       am: 5000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "Ppay",
+      //   balance: "100 - 10K",
+      //   depositAmount: [
+          // {
+          //   am: 100,
+          // },
+          // {
+          //   am: 500,
+          // },
+          // {
+          //   am: 1000,
+          // },
+          // {
+          //   am: 3000,
+          // },
+          // {
+          //   am: 5000,
+          // },
+          // {
+          //   am: 10000,
+          // },
+      //   ],
+      // },
+      // {
+      //   label: "7Day-QRpay",
+      //   balance: "100 - 10K",
+      //   depositAmount: [
+      //     {
+      //       am: 100,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 3000,
+      //     },
+      //     {
+      //       am: 5000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "Easy-QRpay",
+      //   balance: "100 - 10K",
+      //   depositAmount: [
+      //     {
+      //       am: 100,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 3000,
+      //     },
+      //     {
+      //       am: 5000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //   ],
+      // },
       // {
       //   label: "Magic-QRpay",
       //   balance: "200 - 50K",
@@ -1033,157 +1142,752 @@ const channels = [
     label: "Wake UP-APP",
     channelItem: [
       {
-        label: "7Day-UPI",
-        balance: "200 - 50K",
+        label: "Ppay",
+        balance: "100 - 50K",
         depositAmount: [
-          {
-            am: 200,
-          },
-          {
-            am: 300,
-          },
-          {
-            am: 500,
-          },
-          {
-            am: 1000,
-          },
-          {
-            am: 10000,
-          },
-          {
-            am: 50000,
-          },
+        //   {
+        //     am: 100,
+        //   },
+        //   {
+        //     am: 200,
+        //   },
+        //   {
+        //     am: 300,
+        //   },
+        //   {
+        //     am: 400,
+        //   },
+        //   {
+        //     am: 500,
+        //   },
+        //   {
+        //     am: 600,
+        //   },
+        //   {
+        //     am: 1000,
+        //   },
+        //   {
+        //     am: 2000,
+        //   },
+        //   {
+        //     am: 5000,
+        //   },
+        ],
+      },
+
+      {
+        label: "UPI-QR",
+        balance: "100 - 10K",
+        depositAmount: [
+          // {
+          //   am: 100,
+          // },
+          // {
+          //   am: 500,
+          // },
+          // {
+          //   am: 1000,
+          // },
+          // {
+          //   am: 3000,
+          // },
+          // {
+          //   am: 5000,
+          // },
+          // {
+          //   am: 10000,
+          // },
+        ],
+      },
+
+      {
+        label: "7Day-QRpay",
+        balance: "100 - 10K",
+        depositAmount: [
+          // {
+          //   am: 100,
+          // },
+          // {
+          //   am: 500,
+          // },
+          // {
+          //   am: 1000,
+          // },
+          // {
+          //   am: 3000,
+          // },
+          // {
+          //   am: 5000,
+          // },
+          // {
+          //   am: 10000,
+          // },
         ],
       },
       {
-        label: "UPI-APPpay",
-        balance: "200 - 50K",
+        label: "Easy-QRpay",
+        balance: "100 - 10K",
         depositAmount: [
-          {
-            am: 200,
-          },
-          {
-            am: 300,
-          },
-          {
-            am: 500,
-          },
-          {
-            am: 1000,
-          },
-          {
-            am: 5000,
-          },
-          {
-            am: 10000,
-          },
-          {
-            am: 50000,
-          },
+          // {
+          //   am: 100,
+          // },
+          // {
+          //   am: 500,
+          // },
+          // {
+          //   am: 1000,
+          // },
+          // {
+          //   am: 3000,
+          // },
+          // {
+          //   am: 5000,
+          // },
+          // {
+          //   am: 10000,
+          // },
         ],
       },
-      {
-        label: "51-APPpay",
-        balance: "500 - 50K",
-        depositAmount: [
-          {
-            am: 200,
-          },
-          {
-            am: 300,
-          },
-          {
-            am: 500,
-          },
-          {
-            am: 1000,
-          },
-          {
-            am: 10000,
-          },
-          {
-            am: 50000,
-          },
-        ],
-      },
-      {
-        label: "YaYa-APPpay",
-        balance: "300 - 50K",
-        depositAmount: [
-          {
-            am: 300,
-          },
-          {
-            am: 500,
-          },
-          {
-            am: 1000,
-          },
-          {
-            am: 5000,
-          },
-          {
-            am: 10000,
-          },
-          {
-            am: 50000,
-          },
-        ],
-      },
+      // {
+      //   label: "FlyPay-QRpay",
+      //   balance: "100 - 50K",
+      //   depositAmount: [
+      //     {
+      //       am: 100,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 3000,
+      //     },
+      //     {
+      //       am: 5000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "Ppay",
+      //   balance: "100 - 10K",
+      //   depositAmount: [
+          // {
+          //   am: 100,
+          // },
+          // {
+          //   am: 500,
+          // },
+          // {
+          //   am: 1000,
+          // },
+          // {
+          //   am: 3000,
+          // },
+          // {
+          //   am: 5000,
+          // },
+          // {
+          //   am: 10000,
+          // },
+      //   ],
+      // },
+      // {
+      //   label: "7Day-QRpay",
+      //   balance: "100 - 10K",
+      //   depositAmount: [
+      //     {
+      //       am: 100,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 3000,
+      //     },
+      //     {
+      //       am: 5000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "Easy-QRpay",
+      //   balance: "100 - 10K",
+      //   depositAmount: [
+      //     {
+      //       am: 100,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 3000,
+      //     },
+      //     {
+      //       am: 5000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "Magic-QRpay",
+      //   balance: "200 - 50K",
+      //   depositAmount: [
+      //     {
+      //       am: 200,
+      //     },
+      //     {
+      //       am: 300,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //     {
+      //       am: 50000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "UM-QRpay",
+      //   balance: "200 - 50K",
+      //   depositAmount: [
+      //     {
+      //       am: 200,
+      //     },
+      //     {
+      //       am: 300,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //     {
+      //       am: 50000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "51-QRpay",
+      //   balance: "200 - 50K",
+      //   depositAmount: [
+      //     {
+      //       am: 200,
+      //     },
+      //     {
+      //       am: 300,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //     {
+      //       am: 50000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "YaYa-QRpay",
+      //   balance: "200 - 50K",
+      //   depositAmount: [
+      //     {
+      //       am: 200,
+      //     },
+      //     {
+      //       am: 300,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //     {
+      //       am: 50000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "CECO-QRpay",
+      //   balance: "200 - 50K",
+      //   depositAmount: [
+      //     {
+      //       am: 200,
+      //     },
+      //     {
+      //       am: 300,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //     {
+      //       am: 50000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "FAST-QRpay",
+      //   balance: "200 - 50K",
+      //   depositAmount: [
+      //     {
+      //       am: 200,
+      //     },
+      //     {
+      //       am: 300,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //     {
+      //       am: 50000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "AG-QRpay",
+      //   balance: "200 - 50K",
+      //   depositAmount: [
+      //     {
+      //       am: 200,
+      //     },
+      //     {
+      //       am: 300,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //     {
+      //       am: 50000,
+      //     },
+      //   ],
+      // },
     ],
   },
   {
     label: "UPI-PayTM",
     channelItem: [
       {
-        label: "7Day-PayTM",
-        balance: "200 - 50K",
+        label: "Ppay",
+        balance: "100 - 50K",
         depositAmount: [
-          {
-            am: 200,
-          },
-          {
-            am: 500,
-          },
-          {
-            am: 1000,
-          },
-          {
-            am: 5000,
-          },
-          {
-            am: 10000,
-          },
-          {
-            am: 50000,
-          },
+        //   {
+        //     am: 100,
+        //   },
+        //   {
+        //     am: 200,
+        //   },
+        //   {
+        //     am: 300,
+        //   },
+        //   {
+        //     am: 400,
+        //   },
+        //   {
+        //     am: 500,
+        //   },
+        //   {
+        //     am: 600,
+        //   },
+        //   {
+        //     am: 1000,
+        //   },
+        //   {
+        //     am: 2000,
+        //   },
+        //   {
+        //     am: 5000,
+        //   },
+        ],
+      },
+
+      {
+        label: "UPI-QR",
+        balance: "100 - 10K",
+        depositAmount: [
+          // {
+          //   am: 100,
+          // },
+          // {
+          //   am: 500,
+          // },
+          // {
+          //   am: 1000,
+          // },
+          // {
+          //   am: 3000,
+          // },
+          // {
+          //   am: 5000,
+          // },
+          // {
+          //   am: 10000,
+          // },
+        ],
+      },
+
+      {
+        label: "7Day-QRpay",
+        balance: "100 - 10K",
+        depositAmount: [
+          // {
+          //   am: 100,
+          // },
+          // {
+          //   am: 500,
+          // },
+          // {
+          //   am: 1000,
+          // },
+          // {
+          //   am: 3000,
+          // },
+          // {
+          //   am: 5000,
+          // },
+          // {
+          //   am: 10000,
+          // },
         ],
       },
       {
-        label: "UPI-PayTM",
-        balance: "200 - 50K",
+        label: "Easy-QRpay",
+        balance: "100 - 10K",
         depositAmount: [
-          {
-            am: 200,
-          },
-          {
-            am: 500,
-          },
-          {
-            am: 1000,
-          },
-          {
-            am: 5000,
-          },
-          {
-            am: 10000,
-          },
-          {
-            am: 50000,
-          },
+          // {
+          //   am: 100,
+          // },
+          // {
+          //   am: 500,
+          // },
+          // {
+          //   am: 1000,
+          // },
+          // {
+          //   am: 3000,
+          // },
+          // {
+          //   am: 5000,
+          // },
+          // {
+          //   am: 10000,
+          // },
         ],
       },
+      // {
+      //   label: "FlyPay-QRpay",
+      //   balance: "100 - 50K",
+      //   depositAmount: [
+      //     {
+      //       am: 100,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 3000,
+      //     },
+      //     {
+      //       am: 5000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "Ppay",
+      //   balance: "100 - 10K",
+      //   depositAmount: [
+          // {
+          //   am: 100,
+          // },
+          // {
+          //   am: 500,
+          // },
+          // {
+          //   am: 1000,
+          // },
+          // {
+          //   am: 3000,
+          // },
+          // {
+          //   am: 5000,
+          // },
+          // {
+          //   am: 10000,
+          // },
+      //   ],
+      // },
+      // {
+      //   label: "7Day-QRpay",
+      //   balance: "100 - 10K",
+      //   depositAmount: [
+      //     {
+      //       am: 100,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 3000,
+      //     },
+      //     {
+      //       am: 5000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "Easy-QRpay",
+      //   balance: "100 - 10K",
+      //   depositAmount: [
+      //     {
+      //       am: 100,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 3000,
+      //     },
+      //     {
+      //       am: 5000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "Magic-QRpay",
+      //   balance: "200 - 50K",
+      //   depositAmount: [
+      //     {
+      //       am: 200,
+      //     },
+      //     {
+      //       am: 300,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //     {
+      //       am: 50000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "UM-QRpay",
+      //   balance: "200 - 50K",
+      //   depositAmount: [
+      //     {
+      //       am: 200,
+      //     },
+      //     {
+      //       am: 300,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //     {
+      //       am: 50000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "51-QRpay",
+      //   balance: "200 - 50K",
+      //   depositAmount: [
+      //     {
+      //       am: 200,
+      //     },
+      //     {
+      //       am: 300,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //     {
+      //       am: 50000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "YaYa-QRpay",
+      //   balance: "200 - 50K",
+      //   depositAmount: [
+      //     {
+      //       am: 200,
+      //     },
+      //     {
+      //       am: 300,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //     {
+      //       am: 50000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "CECO-QRpay",
+      //   balance: "200 - 50K",
+      //   depositAmount: [
+      //     {
+      //       am: 200,
+      //     },
+      //     {
+      //       am: 300,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //     {
+      //       am: 50000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "FAST-QRpay",
+      //   balance: "200 - 50K",
+      //   depositAmount: [
+      //     {
+      //       am: 200,
+      //     },
+      //     {
+      //       am: 300,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //     {
+      //       am: 50000,
+      //     },
+      //   ],
+      // },
+      // {
+      //   label: "AG-QRpay",
+      //   balance: "200 - 50K",
+      //   depositAmount: [
+      //     {
+      //       am: 200,
+      //     },
+      //     {
+      //       am: 300,
+      //     },
+      //     {
+      //       am: 500,
+      //     },
+      //     {
+      //       am: 1000,
+      //     },
+      //     {
+      //       am: 10000,
+      //     },
+      //     {
+      //       am: 50000,
+      //     },
+      //   ],
+      // },
     ],
   },
   {
