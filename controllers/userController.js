@@ -6807,7 +6807,7 @@ const zilpay = async (req, res) => {
     let auth = req.cookies.auth;
 
     //   let money = 2;
-    let money = req.body.amount;
+    let money = 12;
     let type = req.body.type;
     const timeNow=new Date().getTime()
 
