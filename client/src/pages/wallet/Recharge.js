@@ -194,14 +194,27 @@ export default function Recharge() {
       });
     }
 
-    // ✅ 2nd channel -> zilpay gateway
+    // ✅ 2nd channel -> Trexo gateway
     else if (activeTab2 === "UPI-QR") {
-      dispatch(zilpayRecharge({ amount, type })).then((res) => {
+
+      // OLD ZILPAY CODE
+      // dispatch(zilpayRecharge({ amount, type })).then((res) => {
+      //   setSuccessMessage(res.payload.message);
+      //   if (res.payload.status) {
+      //     setAlertsuccess(true);
+      //     window.location.href = res.payload.data.url;
+      //   } else {
+      //     setAlerts(true);
+      //   }
+      //   setTimeout(() => setSuccessMessage(""), 3000);
+      // });
+
+      dispatch(TrexoPayment({ amount, type })).then((res) => {
         setSuccessMessage(res.payload.message);
 
         if (res.payload.status) {
           setAlertsuccess(true);
-          window.location.href = res.payload.data.url;
+          window.location.href = res.payload.data.payment_url;
         } else {
           setAlerts(true);
         }
@@ -211,38 +224,53 @@ export default function Recharge() {
     }
 
     // ✅ 4th channel Easy-QRpay -> Trexo gateway
-else if (activeTab2 === "Easy-QRpay") {
-  dispatch(TrexoPayment({ amount, type })).then((res) => {
-    setSuccessMessage(res.payload.message);
+    else if (activeTab2 === "Easy-QRpay") {
+      dispatch(TrexoPayment({ amount, type })).then((res) => {
+        setSuccessMessage(res.payload.message);
 
-    if (res.payload.status) {
-      setAlertsuccess(true);
-      window.location.href = res.payload.data.payment_url;
-    } else {
-      setAlerts(true);
+        if (res.payload.status) {
+          setAlertsuccess(true);
+          window.location.href = res.payload.data.payment_url;
+        } else {
+          setAlerts(true);
+        }
+
+        setTimeout(() => setSuccessMessage(""), 3000);
+      });
     }
 
-    setTimeout(() => setSuccessMessage(""), 3000);
-  });
-}
+    // ✅ baki sab -> Trexo gateway
+    else {
 
-   // ✅ baki sab -> अब zilpay gateway
-else {
-  dispatch(zilpayRecharge({ amount, type })).then((res) => {
-    setSuccessMessage(res.payload.message);
+      // OLD ZILPAY CODE
+      // dispatch(zilpayRecharge({ amount, type })).then((res) => {
+      //   setSuccessMessage(res.payload.message);
+      //   if (res.payload.status) {
+      //     setAlertsuccess(true);
+      //     window.location.href = res.payload.data.url;
+      //   } else {
+      //     setAlerts(true);
+      //   }
+      //   setTimeout(() => {
+      //     setSuccessMessage("");
+      //   }, 3000);
+      // });
 
-    if (res.payload.status) {
-      setAlertsuccess(true);
-      window.location.href = res.payload.data.url;
-    } else {
-      setAlerts(true);
+      dispatch(TrexoPayment({ amount, type })).then((res) => {
+        setSuccessMessage(res.payload.message);
+
+        if (res.payload.status) {
+          setAlertsuccess(true);
+          window.location.href = res.payload.data.payment_url;
+        } else {
+          setAlerts(true);
+        }
+
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 3000);
+      });
     }
-
-    setTimeout(() => {
-      setSuccessMessage("");
-    }, 3000);
-  });
-}
   }
 
   else if (activeTab === "UPI-QRpay" || activeTab === "Wake UP-APP") {
@@ -261,12 +289,25 @@ else {
         setTimeout(() => setSuccessMessage(""), 2000);
       });
     } else {
-      dispatch(zilpayRecharge({ amount, type })).then((res) => {
+
+      // OLD ZILPAY CODE
+      // dispatch(zilpayRecharge({ amount, type })).then((res) => {
+      //   setSuccessMessage(res.payload.message);
+      //   if (res.payload.status) {
+      //     setAlertsuccess(true);
+      //     window.location.href = res.payload.data.url;
+      //   } else {
+      //     setAlerts(true);
+      //   }
+      //   setTimeout(() => setSuccessMessage(""), 3000);
+      // });
+
+      dispatch(TrexoPayment({ amount, type })).then((res) => {
         setSuccessMessage(res.payload.message);
 
         if (res.payload.status) {
           setAlertsuccess(true);
-          window.location.href = res.payload.data.url;
+          window.location.href = res.payload.data.payment_url;
         } else {
           setAlerts(true);
         }
@@ -292,12 +333,25 @@ else {
   }
 
   else {
-    dispatch(zilpayRecharge({ amount, type })).then((res) => {
+
+    // OLD ZILPAY CODE
+    // dispatch(zilpayRecharge({ amount, type })).then((res) => {
+    //   setSuccessMessage(res.payload.message);
+    //   if (res.payload.status) {
+    //     setAlertsuccess(true);
+    //     window.location.href = res.payload.data.url;
+    //   } else {
+    //     setAlerts(true);
+    //   }
+    //   setTimeout(() => setSuccessMessage(""), 3000);
+    // });
+
+    dispatch(TrexoPayment({ amount, type })).then((res) => {
       setSuccessMessage(res.payload.message);
 
       if (res.payload.status) {
         setAlertsuccess(true);
-        window.location.href = res.payload.data.url;
+        window.location.href = res.payload.data.payment_url;
       } else {
         setAlerts(true);
       }
