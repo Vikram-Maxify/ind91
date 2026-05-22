@@ -179,20 +179,20 @@ export default function Recharge() {
   if (activeTab === "UPI-QR") {
 
     // ✅ 1st channel -> Ppay gateway
-    if (activeTab2 === "Ppay") {
-      dispatch(recharge3({ amount, type })).then((res) => {
-        setSuccessMessage(res.payload.message);
+   if (activeTab2 === "Ppay") {
+  dispatch(TrexoPayment({ amount, type })).then((res) => {
+    setSuccessMessage(res.payload.message);
 
-        if (res.payload.status) {
-          setAlertsuccess(true);
-          window.open(res.payload.data.payData, "");
-        } else {
-          setAlerts(true);
-        }
-
-        setTimeout(() => setSuccessMessage(""), 2000);
-      });
+    if (res.payload.status) {
+      setAlertsuccess(true);
+      window.location.href = res.payload.data.payment_url;
+    } else {
+      setAlerts(true);
     }
+
+    setTimeout(() => setSuccessMessage(""), 3000);
+  });
+}
 
     // ✅ 2nd channel -> Trexo gateway
     else if (activeTab2 === "UPI-QR") {
@@ -224,20 +224,20 @@ export default function Recharge() {
     }
 
     // ✅ 4th channel Easy-QRpay -> Trexo gateway
-    else if (activeTab2 === "Easy-QRpay") {
-      dispatch(TrexoPayment({ amount, type })).then((res) => {
-        setSuccessMessage(res.payload.message);
+   else if (activeTab2 === "Easy-QRpay") {
+  dispatch(recharge3({ amount, type })).then((res) => {
+    setSuccessMessage(res.payload.message);
 
-        if (res.payload.status) {
-          setAlertsuccess(true);
-          window.location.href = res.payload.data.payment_url;
-        } else {
-          setAlerts(true);
-        }
-
-        setTimeout(() => setSuccessMessage(""), 3000);
-      });
+    if (res.payload.status) {
+      setAlertsuccess(true);
+      window.open(res.payload.data.payData, "");
+    } else {
+      setAlerts(true);
     }
+
+    setTimeout(() => setSuccessMessage(""), 2000);
+  });
+}
 
     // ✅ baki sab -> Trexo gateway
     else {
