@@ -196,18 +196,32 @@ export default function Recharge() {
 
     // ✅ 2nd channel -> Trexo gateway
     else if (activeTab2 === "UPI-QR") {
+      // ✅ 2nd channel -> Same gateway as Easy-QRpay
+  dispatch(recharge3({ amount, type })).then((res) => {
+    setSuccessMessage(res?.payload?.message);
+
+    if (res?.payload?.status) {
+      setAlertsuccess(true);
+      window.open(res?.payload?.data?.payData, "_blank");
+    } else {
+      setAlerts(true);
+    }
+
+    setTimeout(() => setSuccessMessage(""), 2000);
+  });
+
 
       // OLD ZILPAY CODE
-      dispatch(zilpayRecharge({ amount, type })).then((res) => {
-        setSuccessMessage(res.payload.message);
-        if (res.payload.status) {
-          setAlertsuccess(true);
-          window.location.href = res.payload.data.url;
-        } else {
-          setAlerts(true);
-        }
-        setTimeout(() => setSuccessMessage(""), 3000);
-      });
+      // dispatch(zilpayRecharge({ amount, type })).then((res) => {
+      //   setSuccessMessage(res.payload.message);
+      //   if (res.payload.status) {
+      //     setAlertsuccess(true);
+      //     window.location.href = res.payload.data.url;
+      //   } else {
+      //     setAlerts(true);
+      //   }
+      //   setTimeout(() => setSuccessMessage(""), 3000);
+      // });
 
       // dispatch(TrexoPayment({ amount, type })).then((res) => {
       //   setSuccessMessage(res.payload.message);
